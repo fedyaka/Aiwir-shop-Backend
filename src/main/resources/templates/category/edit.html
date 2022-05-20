@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h3>Редактирование категории</h3>
+<form th:action="'/admin/category/edit/' + ${category.id}" th:method="patch">
+    <input type="text" name="name" th:value="${category.name}">
+    <button type="submit">Редактировать</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Заказы</title>
+</head>
+<body>
+    <h3>Заказы:</h3>
+    <a href="/admin/order/add">Добавить заказ</a>
+    <div th:each="order : ${orders}">
+        <p th:text="${order.id}"></p>
+        <p th:text="${order.name}"></p>
+        <p th:text="${order.surname}"></p>
+        <p th:text="${order.phoneNumber}"></p>
+        <p th:text="${order.address}"></p>
+        <p th:text="${order.description}"></p>
+        <p th:text="${order.startDate}"></p>
+        <p th:text="${order.endDate}"></p>
+
+        <div th:each="item : ${order.orderItems}">
+            <p th:text="${item.product.name}"></p>
+            <p th:text="${item.amount}"></p>
+        </div>
+        <br>
+    </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Товары</title>
+</head>
+<body>
+
+<div>
+    <h3>Список товаров</h3>
+    <a href="/admin/product/add">добавить товар</a>
+    <div th:each="el : ${products}">
+        <p th:text="${el.id}"></p>
+        <p th:text="${el.name}"></p>
+        <p th:text="${el.description}"></p>
+        <p th:text="${el.cost}"></p>
+        <p th:text="${el.category.name}"></p>
+        <a th:href="'/admin/product/edit/' + ${el.id}">редактировать</a>
+        <form th:action="'/admin/product/delete/' + ${el.id}" th:method="delete">
+            <button type="submit">удалить</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
