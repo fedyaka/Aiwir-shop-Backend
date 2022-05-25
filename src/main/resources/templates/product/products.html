@@ -5,25 +5,43 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/admin.css}">
     <title>Товары</title>
 </head>
 <body>
 
-<div>
-    <h3>Список товаров</h3>
-    <a href="/admin/product/add">добавить товар</a>
-    <div th:each="el : ${products}">
-        <p th:text="${el.id}"></p>
-        <p th:text="${el.name}"></p>
-        <p th:text="${el.description}"></p>
-        <p th:text="${el.cost}"></p>
-        <p th:text="${el.category.name}"></p>
-        <a th:href="'/admin/product/edit/' + ${el.id}">редактировать</a>
-        <form th:action="'/admin/product/delete/' + ${el.id}" th:method="delete">
-            <button type="submit">удалить</button>
-        </form>
-    </div>
-</div>
+<div class="container">
 
+    <header class="header" th:insert="fragments-html/header :: header"></header>
+
+    <main>
+        <p class="title">Товары</p>
+
+        <table>
+            <tr>
+                <td>id</td>
+                <td>Название</td>
+                <td>Цена в руб.</td>
+                <td></td>
+            </tr>
+            <div th:each="el : ${products}">
+                <tr>
+                    <td class="id" th:text="${el.id}"></td>
+                    <td><a th:text="${el.name}" th:href="'/admin/product/edit/' + ${el.id}">Название</a></td>
+                    <td th:text="${el.cost} + ' руб'"></td>
+                    <td>
+                        <form th:action="'/admin/product/delete/' + ${el.id}" th:method="delete">
+                            <button type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </div>
+        </table>
+
+        <a href="/admin/product/add">добавить товар</a>
+
+    </main>
+
+</div>
 </body>
 </html>

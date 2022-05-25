@@ -1,13 +1,62 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/admin.css}">
+    <title>Заказ</title>
 </head>
 <body>
+
+<div class="container">
+
+    <header class="header" th:insert="fragments-html/header :: header"></header>
+
+    <main class="show">
+
+        <h1 class="title">Просмотр Заказа</h1>
+
+        <b>Имя:</b>
+        <p th:text="${order.name}"></p>
+
+        <b>Фамилия:</b>
+        <p th:text="${order.surname}"></p>
+
+        <b>Номер телефона:</b>
+        <p th:text="${order.phoneNumber}"></p>
+
+        <b>Адрес:</b>
+        <p th:text="${order.address}"></p>
+
+        <b>Описание:</b>
+        <p th:text="${order.description}"></p>
+
+        <b>Сумма заказа:</b>
+        <p th:text="${totalSum}"></p>
+
+        <b>Товар:</b><br>
+        <table>
+            <tr>
+                <td>id</td>
+                <td>Название</td>
+                <td>Цена в руб</td>
+                <td>Количество</td>
+            </tr>
+            <div th:each="orderItem : ${order.getOrderItems()}">
+                <tr>
+                    <td class="id" th:text="${orderItem.product.id}"></td>
+                    <td th:text="${orderItem.product.name}"></td>
+                    <td th:text="${orderItem.product.cost} + ' руб'"></td>
+                    <td th:text="${orderItem.amount}"></td>
+                </tr>
+            </div>
+        </table>
+
+    </main>
+
+</div>
 
 </body>
 </html>

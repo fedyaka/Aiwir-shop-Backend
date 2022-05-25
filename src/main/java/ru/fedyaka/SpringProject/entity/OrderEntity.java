@@ -1,11 +1,13 @@
 package ru.fedyaka.SpringProject.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 
 @Getter
@@ -40,12 +42,9 @@ public class OrderEntity {
     @Column(name = "description", length = 2048)
     private String description;
 
-//    @ManyToMany
-//    @JoinTable(name = "order_item",
-//            joinColumns = @JoinColumn(name = "order_id"),
-//            inverseJoinColumns = @JoinColumn(name = "product_id"))
     @NonNull
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<OrderItemEntity> orderItems;
 
     @NonNull

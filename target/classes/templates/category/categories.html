@@ -5,19 +5,42 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/admin.css}">
     <title>Категории</title>
 </head>
 <body>
-<div>
-    <h3><a href="/admin/category/add">Добавить категорию</a></h3>
-    <div th:each="el : ${categories}">
-        <p th:text="${el.id}"></p>
-        <p th:text="${el.name}"></p>
-        <a th:href="'/admin/category/edit/' + ${el.id}">Редактировать</a>
-        <form th:action="'/admin/category/delete/' + ${el.id}" th:method="delete">
-            <button type="submit">Удалить</button>
-        </form>
-    </div>
+
+<div class="container">
+
+    <header class="header" th:insert="fragments-html/header :: header"></header>
+
+    <main>
+        <p class="title">Категории</p>
+
+        <table>
+            <tr>
+                <td>id</td>
+                <td>Название</td>
+                <td></td>
+            </tr>
+            <div th:each="el : ${categories}">
+                <tr>
+                    <td class="id" th:text="${el.id}"></td>
+                    <td><a th:text="${el.name}" th:href="'/admin/category/edit/' + ${el.id}">Название</a></td>
+                    <td>
+                        <form th:action="'/admin/category/delete/' + ${el.id}" th:method="delete">
+                            <button type="submit">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            </div>
+        </table>
+
+        <a href="/admin/category/add">Добавить категорию</a>
+
+    </main>
+
 </div>
+
 </body>
 </html>

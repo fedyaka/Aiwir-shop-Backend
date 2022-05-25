@@ -5,21 +5,33 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{/admin.css}">
     <title>Создание продукта</title>
 </head>
 <body>
-<div>
-    <form action="/admin/product/add" method="post">
-        <input type="text" name="name" placeholder="Название">
-        <input type="text" name="description" placeholder="Описание">
-        <input type="text" name="cost" placeholder="цена">
-        <select name="category">
-            <div th:each="el : ${categories}">
-                <option th:value="${el.id}" th:text="${el.name}"></option>
-            </div>
-        </select>
-        <button type="submit">Добавить</button>
-    </form>
+
+
+<div class="container">
+
+    <header class="header" th:insert="fragments-html/header :: header"></header>
+
+    <main>
+        <p class="title">Добавление продукта</p>
+
+        <form action="/admin/product/add" method="post">
+            <input type="text" name="name" placeholder="Название">
+            <textarea type="text" name="description" placeholder="Описание"></textarea>
+            <input type="text" name="cost" placeholder="Цена в рублях">
+            <label for="category">Категория:</label>
+            <select name="category" id="category">
+                <div th:each="el : ${categories}">
+                    <option th:value="${el.id}" th:text="${el.name}"></option>
+                </div>
+            </select>
+            <button type="submit" class="submit">Добавить товар</button>
+        </form>
+    </main>
+
 </div>
 </body>
 </html>
