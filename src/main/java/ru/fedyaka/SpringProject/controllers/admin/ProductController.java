@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.fedyaka.SpringProject.service.admin.CategoryService;
 import ru.fedyaka.SpringProject.service.admin.ProductService;
 
+import java.util.Arrays;
+import java.util.Set;
+
 @Controller
 @RequestMapping("/admin/product")
 public class ProductController {
@@ -35,7 +38,7 @@ public class ProductController {
     public String create(@RequestParam(name = "name") String name,
                          @RequestParam(name = "description") String description,
                          @RequestParam(name = "cost") Double  cost,
-                         @RequestParam(name = "category") long categoryId){
+                         @RequestParam(name = "category") Long categoryId){
         productService.create(name, description, cost, categoryId);
         return "redirect:/admin/product/";
     }
@@ -52,7 +55,7 @@ public class ProductController {
                          @RequestParam(name = "name") String name,
                          @RequestParam(name = "description") String description,
                          @RequestParam(name = "cost") Double cost,
-                         @RequestParam(name = "category") long categoryId){
+                         @RequestParam(name = "category") Long categoryId){
         productService.update(id, name, description, cost, categoryId);
         return "redirect:/admin/product/";
     }

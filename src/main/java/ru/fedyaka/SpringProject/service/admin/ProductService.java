@@ -7,6 +7,9 @@ import ru.fedyaka.SpringProject.entity.ProductEntity;
 import ru.fedyaka.SpringProject.repository.CategoryRepository;
 import ru.fedyaka.SpringProject.repository.ProductRepository;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Service
 public class ProductService {
@@ -32,7 +35,7 @@ public class ProductService {
     }
 
 
-    public void create(String name, String description, Double cost, long categoryId){
+    public void create(String name, String description, Double cost, Long categoryId){
         ProductEntity entity = new ProductEntity();
         entity.setName(name);
         entity.setDescription(description);
@@ -40,7 +43,7 @@ public class ProductService {
         entity.setCategory(categoryRepository.findById(categoryId).get());
         productRepository.save(entity);
     }
-    public void update(long id, String name, String description, Double cost, long categoryId){
+    public void update(long id, String name, String description, Double cost, Long categoryId){
         ProductEntity productEntity = productRepository.findById(id).get();
         productEntity.setName(name);
         productEntity.setDescription(description);
@@ -50,8 +53,7 @@ public class ProductService {
     }
 
     public void delete(long id){
-        productRepository.delete(productRepository.findById(id).get());
+        productRepository.deleteById(id);
     }
-
 
 }

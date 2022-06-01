@@ -31,7 +31,7 @@ public class CategoryService {
     }
 
     public void delete(long id){
-        categoryRepository.delete(categoryRepository.findById(id).get());
+        categoryRepository.deleteById(id);
     }
 
     public void update(long id, String name){
