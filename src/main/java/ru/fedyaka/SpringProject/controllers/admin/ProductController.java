@@ -4,11 +4,10 @@ package ru.fedyaka.SpringProject.controllers.admin;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.fedyaka.SpringProject.service.admin.CategoryService;
 import ru.fedyaka.SpringProject.service.admin.ProductService;
 
-import java.util.Arrays;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin/product")
@@ -35,11 +34,12 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public String create(@RequestParam(name = "name") String name,
+    public String create(@RequestParam(name = "image") MultipartFile file,
+                         @RequestParam(name = "name") String name,
                          @RequestParam(name = "description") String description,
                          @RequestParam(name = "cost") Double  cost,
                          @RequestParam(name = "category") Long categoryId){
-        productService.create(name, description, cost, categoryId);
+        productService.create( file, name, description, cost, categoryId);
         return "redirect:/admin/product/";
     }
 
@@ -52,11 +52,12 @@ public class ProductController {
 
     @PatchMapping("/edit/{id}")
     public String update(@PathVariable(name = "id") long id,
+                         @RequestParam(name = "image") MultipartFile file,
                          @RequestParam(name = "name") String name,
                          @RequestParam(name = "description") String description,
                          @RequestParam(name = "cost") Double cost,
                          @RequestParam(name = "category") Long categoryId){
-        productService.update(id, name, description, cost, categoryId);
+        productService.update(id, file, name, description, cost, categoryId);
         return "redirect:/admin/product/";
     }
 

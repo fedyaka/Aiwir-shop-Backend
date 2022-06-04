@@ -17,8 +17,10 @@
     <main>
 
         <p class="title">Редактирование категории</p>
-
-        <form th:action="'/admin/product/edit/' + ${product.id}" th:method="patch">
+        <div id="product-image"><img th:src="${product.image}"></div>
+        <form th:action="'/admin/product/edit/' + ${product.id}" th:method="patch" enctype="multipart/form-data">
+            <label for="image-uploader">Выбор изображения</label>
+            <input type="file" name="image" id="image-uploader" accept=".jpg, .png, .jpeg">
 
             <label for="name">Название:</label>
             <input type="text" name="name" id="name" placeholder="Название" th:value="${product.name}">
@@ -50,6 +52,8 @@
     </main>
 
 </div>
+
+<script th:src="@{/admin.js}"></script>
 
 </body>
 </html>

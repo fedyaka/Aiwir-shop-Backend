@@ -125,3 +125,15 @@ table td a{
 .show b{
     font-size: 22px;
 }
+
+
+#product-image{
+    max-height: 400px;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+}
+#product-image img{
+    max-height: 100%;
+    max-width: 100%;
+}

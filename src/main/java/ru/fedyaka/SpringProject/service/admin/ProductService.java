@@ -1,14 +1,12 @@
 package ru.fedyaka.SpringProject.service.admin;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.fedyaka.SpringProject.entity.CategoryEntity;
+import org.springframework.web.multipart.MultipartFile;
 import ru.fedyaka.SpringProject.entity.ProductEntity;
 import ru.fedyaka.SpringProject.repository.CategoryRepository;
 import ru.fedyaka.SpringProject.repository.ProductRepository;
-
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Service
@@ -18,10 +16,16 @@ public class ProductService {
 
     CategoryRepository categoryRepository;
 
+    StorageService storageService;
+
+    @Value("${LOCAL_PATH_IMAGE}")
+    private String localPathImage;
+
     @Autowired
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository){
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, StorageService storageService){
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.storageService = storageService;
     }
 
 
@@ -35,24 +39,27 @@ public class ProductService {
     }
 
 
-    public void create(String name, String description, Double cost, Long categoryId){
+    public void create(MultipartFile file, String name, String description, Double cost, Long categoryId){
         ProductEntity entity = new ProductEntity();
         entity.setName(name);
         entity.setDescription(description);
         entity.setCost(cost);
         entity.setCategory(categoryRepository.findById(categoryId).get());
+        entity.setImage(storageService.store(file, localPathImage));
         productRepository.save(entity);
     }
-    public void update(long id, String name, String description, Double cost, Long categoryId){
+    public void update(long id, MultipartFile file, String name, String description, Double cost, Long categoryId){
         ProductEntity productEntity = productRepository.findById(id).get();
         productEntity.setName(name);
         productEntity.setDescription(description);
         productEntity.setCost(cost);
         productEntity.setCategory(categoryRepository.findById(categoryId).get());
+        productEntity.setImage(storageService.update(productEntity.getImage(), file, localPathImage));
         productRepository.save(productEntity);
     }
 
     public void delete(long id){
+        storageService.delete(productRepository.findById(id).get().getImage(), localPathImage);
         productRepository.deleteById(id);
     }
 
